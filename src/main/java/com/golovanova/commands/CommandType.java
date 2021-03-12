@@ -16,5 +16,6 @@ public enum CommandType {
     history,
     remove_any_by_organization,
     average_of_salary,
-    filter_by_organization
+    filter_by_organization,
+    no_command
 }

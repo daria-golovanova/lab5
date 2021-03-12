@@ -7,6 +7,8 @@ import com.sun.istack.internal.NotNull;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -14,7 +16,18 @@ import java.util.Objects;
 public class Worker implements Comparable<Worker> {
     private static Integer idSequence = 0;
 
-    public static Integer generateId() {
+    public static void updateIdSequence(Collection<Worker> workers) {
+        Integer currentMaxId = workers.stream()
+                .mapToInt(Worker::getId)
+                .max()
+                .orElse(0);
+
+        if(currentMaxId > idSequence) {
+            idSequence = currentMaxId;
+        }
+    }
+
+    private static Integer generateId() {
         idSequence++;
         return idSequence;
     }

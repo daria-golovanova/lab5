@@ -2,8 +2,6 @@ package com.golovanova.scanner;
 
 import com.golovanova.model.*;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 public class WorkerScanner {
@@ -15,23 +13,31 @@ public class WorkerScanner {
         System.out.println("Input data of worker: ");
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Input name: ");
         String name = scanner.nextLine();
+        //TODO
+        System.out.println("Input coordinate x: ");
         double x = scanner.nextDouble();
+        System.out.println("Input coordinate y: ");
         float y = scanner.nextFloat();
         Coordinates coordinates = new Coordinates(x,y);
+        System.out.println("Input salary: ");
         float salary = scanner.nextFloat();
+        System.out.println("Input status: ");
         Status status = null;
         try {
             status = statusScanner.scanEnum();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Input position: ");
         Position position = null;
         try {
             position = positionScanner.scanEnum();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Input Organization: ");
         Organization organization = null;
         try {
             organization = organizationScanner.scan();

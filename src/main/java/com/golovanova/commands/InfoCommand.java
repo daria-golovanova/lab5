@@ -1,5 +1,7 @@
 package com.golovanova.commands;
 
+import java.util.ArrayDeque;
+
 public class InfoCommand extends AbstractCommand {
 
 
@@ -7,7 +9,7 @@ public class InfoCommand extends AbstractCommand {
         super("info", "display information about the collection");
     }
 
-    public boolean execute() {
-        return false;
+    public void execute(ArrayDeque workers) {
+        System.out.println(workers);
     }
 }

@@ -27,20 +27,27 @@ public class FileManager {
     }
 
     public void writeCollection(Collection<?> collection) {
-        if (file != null && file.isFile() && file.exists()) {
-            try (PrintWriter collectionFileWriter = new PrintWriter(file)) {
-                collectionFileWriter.write(g.toJson(collection));
-                System.out.println("Коллекция успешна сохранена в файл!");
-            } catch (IOException exception) {
-                System.err.println("Загрузочный файл является директорией/не может быть открыт!");
-            }
-        } else
-            System.err.println("Системная переменная с загрузочным файлом не найдена!");
+        if (file == null || !file.isFile() || !file.exists() || !file.canWrite()) {
+            System.err.println("File is corrupted.");
+            return;
+        }
+
+        try (PrintWriter collectionFileWriter = new PrintWriter(file)) {
+            collectionFileWriter.write(g.toJson(collection));
+            System.out.println("Коллекция успешна сохранена в файл!");
+        } catch (IOException exception) {
+            System.err.println("Загрузочный файл является директорией/не может быть открыт!");
+        }
     }
 
     public ArrayDeque<Worker> readCollection() {
-        if (file == null || !file.isFile() || !file.exists()) {
-            System.err.println("Системная переменная с загрузочным файлом не найдена!");
+        if (file == null) {
+            System.err.println("File is null.");
+            return new ArrayDeque<>();
+        }
+
+        if (!file.isFile() || !file.exists() || !file.canRead()) {
+            System.err.println("File is corrupted.");
             return new ArrayDeque<>();
         }
 
@@ -49,6 +56,8 @@ public class FileManager {
             Type collectionType = new TypeToken<ArrayDeque<Worker>>() {}.getType();
             collection = g.fromJson(reader.readLine().trim(), collectionType);
             System.out.println("Collection is downloaded!");
+
+            Worker.updateIdSequence(collection);
             return collection;
         } catch (FileNotFoundException exception) {
             System.err.println("Загрузочный файл не найден!");
@@ -60,6 +69,7 @@ public class FileManager {
             System.err.println("Непредвиденная ошибка!");
             System.exit(0);
         }
+
 
         return new ArrayDeque<>();
     }

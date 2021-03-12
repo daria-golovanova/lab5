@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 
 public class UpdateCommand extends AbstractCommand {
     public UpdateCommand() {
-        super("update id {element_id}", "update the value of a collection " +
+        super("update id {element}", "update the value of a collection " +
                 "element whose id is equal to the specified one");
     }
 

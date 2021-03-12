@@ -1,6 +1,5 @@
 package com.golovanova.commands;
 
-import com.golovanova.model.Organization;
 import com.golovanova.model.Worker;
 
 import java.util.ArrayDeque;
@@ -14,7 +13,7 @@ public class FilterByOrganizationCommand extends AbstractCommand {
 
     public void execute (ArrayDeque<Worker> workers, String organisationName) {
         for (Worker w : workers) {
-            if (w.getOrganization().equals(organisationName)) {
+            if (w.getOrganization().getName().equals(organisationName)) {
                 System.out.println(w);
             }
         }

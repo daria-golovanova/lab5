@@ -23,7 +23,7 @@ public class CommandDecoder {
             case "history": return history;
             case "remove_any_by_organization": return remove_any_by_organization;
             case "average_of_salary": return average_of_salary;
-            default: return filter_by_organization;
+            default: return no_command;
         }
     }
 }

@@ -10,7 +10,7 @@ public class AddCommand extends AbstractCommand {
         super("add {element}", "add a new item to the collection");
     }
 
-    private WorkerScanner workerScanner;
+    private WorkerScanner workerScanner = new WorkerScanner();
 
     public void execute(ArrayDeque<Worker> workers) {
         Worker worker = workerScanner.scan();
