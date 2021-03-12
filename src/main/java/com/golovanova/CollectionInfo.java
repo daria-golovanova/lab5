@@ -1,16 +1,15 @@
 package com.golovanova;
 
-import lombok.Getter;
-import lombok.Setter;
+//import lombok.Getter;
+//import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-@Getter
 public class CollectionInfo {
-    @Setter
+
+
     private LocalDateTime initTime;
-    @Setter
     private LocalDateTime saveTime;
     private Collection collection;
 
@@ -18,5 +17,24 @@ public class CollectionInfo {
         this.collection = collection;
         initTime = LocalDateTime.now();
         saveTime = LocalDateTime.now();
+    }
+
+    public LocalDateTime getInitTime() {
+        return initTime;
+    }
+
+    public LocalDateTime getSaveTime() {
+        return saveTime;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public void setInitTime(LocalDateTime initTime) {
+        this.initTime = initTime;
+    }
+    public void setSaveTime(LocalDateTime saveTime) {
+        this.saveTime = saveTime;
     }
 }

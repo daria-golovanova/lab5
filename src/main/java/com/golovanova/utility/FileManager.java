@@ -1,35 +1,30 @@
 package com.golovanova.utility;
 
+import com.golovanova.adapter.ZonedDateTimeAdapter;
 import com.golovanova.model.Worker;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.time.ZonedDateTime;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class FileManager {
-        private Gson g = new Gson();
-        private File file;
+    private final Gson g = new GsonBuilder()
+            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
+            .enableComplexMapKeySerialization()
+            .create();
 
-        public FileManager(File file) {
-            this.file = file;
-        }
-    //TODO Парсер
-//    File file = new File("C:\\Dropbox\\Мой ПК (Darya)\\Desktop\\data.json"); //??????????
-//
-//    public void readFromFile() throws IOException {
-//        //InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-    //BufferedReader reader = new BufferedReader(new InputStreamReader(new File(System.getenv().get(envVariable))));
-//        String line = reader.readLine();
-//    }
-//
-//    public void parse() {
-//        Gson g = new Gson();
-//        Worker worker = g.fromJson(jsonString, Worker.class);
-//    }
+    private File file;
+
+    public FileManager(File file) {
+        this.file = file;
+    }
 
     public void writeCollection(Collection<?> collection) {
         if (file != null && file.isFile() && file.exists()) {
@@ -43,27 +38,55 @@ public class FileManager {
             System.err.println("Системная переменная с загрузочным файлом не найдена!");
     }
 
-     public ArrayDeque<Worker> readCollection() {
-            if (file != null && file.isFile() && file.exists()) {
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-                    ArrayDeque<Worker> collection;
-                    Type collectionType = new TypeToken<ArrayDeque<Worker>>() {}.getType();
-                    collection = g.fromJson(reader.readLine().trim(), collectionType);
-                    System.out.println("Collection is downloaded!");
-                    return collection;
-                } catch (FileNotFoundException exception) {
-                    System.err.println("Загрузочный файл не найден!");
-                } catch (NoSuchElementException exception) {
-                    System.err.println("Загрузочный файл пуст!");
-                } catch (JsonParseException | NullPointerException exception) {
-                    System.err.println("В загрузочном файле не обнаружена необходимая коллекция!");
-                } catch (IllegalStateException | IOException exception) {
-                    System.err.println("Непредвиденная ошибка!");
-                    System.exit(0);
-                }
-            } else System.err.println("Системная переменная с загрузочным файлом не найдена!");
-            return new ArrayDeque<Worker>();
+    public ArrayDeque<Worker> readCollection() {
+        if (file == null || !file.isFile() || !file.exists()) {
+            System.err.println("Системная переменная с загрузочным файлом не найдена!");
+            return new ArrayDeque<>();
         }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            ArrayDeque<Worker> collection = new ArrayDeque<>();
+            Type collectionType = new TypeToken<ArrayDeque<Worker>>() {}.getType();
+            collection = g.fromJson(reader.readLine().trim(), collectionType);
+            System.out.println("Collection is downloaded!");
+            return collection;
+        } catch (FileNotFoundException exception) {
+            System.err.println("Загрузочный файл не найден!");
+        } catch (NoSuchElementException exception) {
+            System.err.println("Загрузочный файл пуст!");
+        } catch (JsonParseException | NullPointerException exception) {
+            System.err.println("В загрузочном файле не обнаружена необходимая коллекция!" + exception);
+        } catch (IllegalStateException | IOException exception) {
+            System.err.println("Непредвиденная ошибка!");
+            System.exit(0);
+        }
+
+        return new ArrayDeque<>();
+    }
+
+    public ArrayDeque<Worker> readObject() {
+        if (file == null || !file.isFile() || !file.exists()) {
+            return new ArrayDeque<>();
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            ArrayDeque<Worker> collection = new ArrayDeque<>();
+            Type type = new TypeToken<Worker>() {}.getType();
+            Worker w = g.fromJson(reader.readLine().trim(), type);
+            collection.add(w);
+
+            System.out.println("Object is downloaded!");
+            return collection;
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayDeque<>();
+    }
+
 
     @Override
     public String toString() {

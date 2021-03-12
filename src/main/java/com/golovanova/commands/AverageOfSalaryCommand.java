@@ -12,13 +12,13 @@ public class AverageOfSalaryCommand extends AbstractCommand {
 
     private double averageSalary;
 
-    public double execute(ArrayDeque<Worker> workers) {
+    public void execute(ArrayDeque<Worker> workers) {
 
         for (Worker w: workers) {
             averageSalary+= w.getSalary();
         }
         averageSalary = averageSalary/workers.size();
 
-        return averageSalary;
+        System.out.println(averageSalary);
     }
 }

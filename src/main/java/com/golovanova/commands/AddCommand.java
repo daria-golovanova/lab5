@@ -14,19 +14,6 @@ public class AddCommand extends AbstractCommand {
 
     public void execute(ArrayDeque<Worker> workers) {
         Worker worker = workerScanner.scan();
-
-//        Scanner scanner = new Scanner(System.in);
-//        this.name = scanner.nextLine();
-//        this.x = scanner.nextDouble();
-//        this.y = scanner.nextFloat();
-//        Coordinates coordinates = new Coordinates(x,y);
-//        this.salary = scanner.nextFloat();
-//        this.status = scanner.next();
-//        this.position = scanner.next();
-//        this.organization = scanner.next();
-//
-//        Worker worker = new Worker(id, name, coordinates, creationDate, salary, startDate, position, status, organization);
-
         workers.add(worker);
     }
 }

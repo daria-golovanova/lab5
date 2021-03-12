@@ -19,9 +19,9 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    //implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
 
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    //https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 
 

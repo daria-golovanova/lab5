@@ -20,10 +20,24 @@ public class WorkerScanner {
         float y = scanner.nextFloat();
         Coordinates coordinates = new Coordinates(x,y);
         float salary = scanner.nextFloat();
-        Status status = statusScanner.scanEnum();
-        Position position = positionScanner.scanEnum();
-        Organization organization = organizationScanner.scan();
-
+        Status status = null;
+        try {
+            status = statusScanner.scanEnum();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Position position = null;
+        try {
+            position = positionScanner.scanEnum();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Organization organization = null;
+        try {
+            organization = organizationScanner.scan();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         Worker worker = new Worker(

@@ -9,8 +9,7 @@ public class ClearCommand extends AbstractCommand {
         super("clear", "clear the collection");
     }
 
-    public boolean execute(ArrayDeque<Worker> workers) {
+    public void execute(ArrayDeque<Worker> workers) {
         workers.clear();
-        return true;
     }
 }

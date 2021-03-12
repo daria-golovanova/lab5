@@ -2,11 +2,11 @@ package com.golovanova.commands;
 
 import com.golovanova.exceptions.WorkerNotFoundException;
 import com.golovanova.model.Worker;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayDeque;
 
-@Slf4j //Slf4j, logback.xml - читать
+//@Slf4j //Slf4j, logback.xml - читать
 public class RemoveLowerCommand extends AbstractCommand {
     public RemoveLowerCommand() {
         super("remove_lower {element_id}", "remove all items from the collection that are " +

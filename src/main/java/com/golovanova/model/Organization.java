@@ -2,6 +2,8 @@ package com.golovanova.model;
 
 //import com.sun.istack.internal.NotNull;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.Objects;
 
 public class Organization {
@@ -9,7 +11,7 @@ public class Organization {
     private Long employeesCount; //Поле не может быть null, Значение поля должно быть больше 0
     private OrganizationType type; //Поле не может быть null
 
-    public Organization(/**@NotNull */Long employeesCount, /**@NotNull */OrganizationType type, /**@NotNull */String name) {
+    public Organization(@NotNull Long employeesCount, @NotNull OrganizationType type, @NotNull String name) {
         this.employeesCount = employeesCount;
         this.type = type;
         this.name = name;
