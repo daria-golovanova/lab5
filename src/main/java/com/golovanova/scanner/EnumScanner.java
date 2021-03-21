@@ -1,12 +1,15 @@
 package com.golovanova.scanner;
 
+import com.golovanova.data.DataSource;
 
 import java.util.Scanner;
 
 public class EnumScanner<T extends Enum> {
-    private Class<T> clazz;
+    private final DataSource dataSource;
+    private final Class<T> clazz;
 
-    public EnumScanner(Class<T> clazz) {
+    public EnumScanner(DataSource dataSource, Class<T> clazz) {
+        this.dataSource = dataSource;
         this.clazz = clazz;
     }
 

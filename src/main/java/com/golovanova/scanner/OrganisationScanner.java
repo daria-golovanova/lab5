@@ -1,21 +1,26 @@
 package com.golovanova.scanner;
 
 
+import com.golovanova.data.DataSource;
 import com.golovanova.model.Organization;
 import com.golovanova.model.OrganizationType;
 
-import java.util.Scanner;
-
 public class OrganisationScanner {
-    private EnumScanner<OrganizationType> organizationTypeScanner = new EnumScanner<>(OrganizationType.class);
+    private final DataSource dataSource;
+    private EnumScanner<OrganizationType> organizationTypeScanner;
+
+    public OrganisationScanner(DataSource dataSource) {
+        this.dataSource = dataSource;
+        organizationTypeScanner = new EnumScanner<>(dataSource, OrganizationType.class);
+    }
 
     public Organization scan() throws Exception {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Input organisation's data: ");
         System.out.println("Input name: ");
-        String name = scanner.nextLine();
+        dataSource.nextLine();
+        String name = dataSource.nextLine();
         System.out.println("Input employees count: ");
-        Long employeesCount = scanner.nextLong();
+        Long employeesCount = dataSource.nextLong();
         OrganizationType type = organizationTypeScanner.scanEnum();
 
         Organization organization = new Organization(employeesCount, type, name);

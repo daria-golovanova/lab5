@@ -1,5 +1,6 @@
 package com.golovanova.utility;
 
+import com.golovanova.CollectionInfo;
 import com.golovanova.adapter.ZonedDateTimeAdapter;
 import com.golovanova.model.Worker;
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -56,6 +58,10 @@ public class FileManager {
             Type collectionType = new TypeToken<ArrayDeque<Worker>>() {}.getType();
             collection = g.fromJson(reader.readLine().trim(), collectionType);
             System.out.println("Collection is downloaded!");
+
+            CollectionInfo collectionInfo = new CollectionInfo(collection);
+            collectionInfo.setSaveTime(LocalDateTime.now());
+            collectionInfo.setInitTime(LocalDateTime.now());
 
             Worker.updateIdSequence(collection);
             return collection;

@@ -1,0 +1,16 @@
+add
+anna
+14
+17
+122
+HIRED
+BAKER
+BMW
+123
+TRUST
+show
+info
+history
+help
+remove_by_id
+2

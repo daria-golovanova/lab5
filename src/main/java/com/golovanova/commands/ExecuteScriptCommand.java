@@ -6,8 +6,7 @@ public class ExecuteScriptCommand extends AbstractCommand {
                 "file. The script contains com.golovanova.commands in the same form as the user enters them interactively.");
     }
 
-    public boolean execute(String filePath) {
+    public void execute(String filePath) {
 
-        return false;
     }
 }

@@ -10,7 +10,6 @@ public class ShowCommand extends AbstractCommand {
                 "in a string representation to the standard output stream");
     }
 
-
     public void execute(ArrayDeque<Worker> workers) {
         for (Worker w : workers) {
             System.out.println(w.toString());

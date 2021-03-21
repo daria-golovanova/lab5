@@ -2,6 +2,9 @@ package com.golovanova.model;
 
 import java.util.Comparator;
 
+/**
+ * enum of Position
+ */
 public enum Position {
     LEAD_DEVELOPER(4),
     HEAD_OF_DIVISION(3),
@@ -11,14 +14,23 @@ public enum Position {
 
     private int value;
 
+    /**
+     * @param value
+     */
     Position(int value) {
         this.value = value;
     }
 
+    /**
+     * @return vlue
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * @return compared para
+     */
     public static Comparator<Position> getComparator() {
         Comparator<Position> comparator = new Comparator<Position>() {
             @Override

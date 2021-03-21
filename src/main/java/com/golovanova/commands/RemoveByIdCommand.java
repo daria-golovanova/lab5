@@ -7,7 +7,8 @@ import java.util.ArrayDeque;
 
 public class RemoveByIdCommand extends AbstractCommand {
     public RemoveByIdCommand() {
-        super("remove_by_id id", "delete an item from the collection by its id");
+        super("remove_by_id id",
+                "delete an item from the collection by its id");
     }
 
     public void execute(ArrayDeque<Worker> workers, int argument) {

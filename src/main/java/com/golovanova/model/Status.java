@@ -2,6 +2,9 @@ package com.golovanova.model;
 
 import java.util.Comparator;
 
+/**
+ * enum of Status
+ */
 public enum Status {
     REGULAR(2),
     HIRED(1),
@@ -9,14 +12,23 @@ public enum Status {
 
     private int value;
 
+    /**
+     * @param value
+     */
     Status(int value) {
         this.value = value;
     }
 
+    /**
+     * @return value
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * @return compared param
+     */
     public static Comparator<Status> getComparator() {
         Comparator<Status> comparator = new Comparator<Status>() {
             @Override

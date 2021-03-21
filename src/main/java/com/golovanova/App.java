@@ -10,18 +10,56 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class App {
 
     public static void main(String[] args) {
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
+//        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("Ctrl+C Handled!");
+//            }
+//        }));
+        // Create barrier and set counddown counter to 1
+//        CountDownLatch doneSignal = new CountDownLatch(1);
+//
+//        Runtime.getRuntime().addShutdownHook(new Thread() {
+//
+//            /** This handler will be called on Control-C pressed */
+//            @Override
+//            public void run() {
+//                // Decrement counter.
+//                // It will became 0 and main thread who waits for this barrier could continue run (and fulfill all proper shutdown steps)
+//                doneSignal.countDown();
+//            }
+//        });
+//
+//
+//        // Here we enter wait state until control-c will be pressed
+//        try {
+//            doneSignal.await();
+//        } catch (InterruptedException e) {
+//        }
+
+        // Once ctrl-c pressed, barrier is open and we processed to
+        // shutdown steps here
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                System.out.println("Ctrl+C Handled!");
+                try {
+                    Thread.sleep(100);
+                    System.out.println("Shutting down...");
+
+                } catch (NoSuchElementException e) {
+                    System.err.println("CTRL+D Program stops");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    e.printStackTrace();
+                }
             }
-        }));
+        });
 
         Scanner scanner = new Scanner(System.in);
         ArrayDeque<Worker> workers = new ArrayDeque<>();
@@ -40,24 +78,8 @@ public class App {
             }
         }
 
-
-
-
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        Coordinates coordinates = new Coordinates(13d, 14f);
-//        Organization organization = new Organization(45l, OrganizationType.COMMERCIAL, "BMW");
-//        Worker car = new Worker("Daria", coordinates, 123f, Position.ENGINEER, Status.HIRED, organization);
-//        Worker car2 = new Worker("Ania", coordinates, 123f, Position.ENGINEER, Status.HIRED, organization);
-//        ArrayDeque<Worker> workers1 = new ArrayDeque<>();
-//        workers.add(car);
-//        workers.add(car2);
         FileManager fileManager = new FileManager(file);
-//
-//        AddCommand add = new AddCommand();
-//        System.out.println(add);
-
         workers = fileManager.readCollection();
-
         //System.out.println(workers.stream().map(Worker::toString).collect(Collectors.joining("\n\n")));
         System.out.println("Use 'help' command for browsing the list of com.golovanova.commands.");
         ArrayList<CommandType> history = new ArrayList<>();
@@ -73,7 +95,7 @@ public class App {
                     new HelpCommand().execute();
                     break;
                 case info:
-                    new InfoCommand().execute(workers);
+                    new InfoCommand().execute(workers, collectionInfo);
                     break;
                 case history:
                     new HistoryCommand().execute(history, commandType);
@@ -97,7 +119,7 @@ public class App {
                     new ExitCommand().execute();
                     break;
                 case remove_any_by_organization:
-                    new FilterByOrganizationCommand().execute(workers, split[1]);
+                    new RemoveAnyByOrganizationCommand().execute(workers, split[1]);
                     break;
                 case remove_head:
                     new RemoveHeadCommand().execute(workers);
@@ -120,7 +142,7 @@ public class App {
                     break;
                 case update:
                     try {
-                        new UpdateCommand().execute(split[1], workers);
+                        new UpdateCommand().execute(workers);
                     } catch (WorkerNotFoundException e) {
                         e.printStackTrace();
                     }

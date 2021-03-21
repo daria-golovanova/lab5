@@ -10,6 +10,6 @@ public class RemoveHeadCommand extends AbstractCommand {
     }
 
     public void execute(ArrayDeque<Worker> workers) {
-        workers.pollFirst();
+        System.out.println(workers.pollFirst());
     }
 }

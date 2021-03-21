@@ -5,14 +5,14 @@ import com.golovanova.model.*;
 
 import java.util.InputMismatchException;
 
-public class WorkerScanner {
+public class SpecialWorkerScanner {
     private final DataSource dataSource;
     private EnumScanner<Position> positionScanner;
     private EnumScanner<Status> statusScanner;
     private OrganisationScanner organizationScanner;
     private CoordinatesScanner coordinatesScanner;
 
-    public WorkerScanner(DataSource dataSource) {
+    public SpecialWorkerScanner(DataSource dataSource) {
         this.dataSource = dataSource;
         positionScanner = new EnumScanner<>(dataSource, Position.class);
         statusScanner = new EnumScanner<>(dataSource, Status.class);
@@ -25,6 +25,8 @@ public class WorkerScanner {
         System.out.println("Input data of worker: ");
         System.out.println("Input name: ");
         String name = dataSource.nextLine();
+        System.out.println("Input id: ");
+        Integer id = dataSource.nextInt();
         Coordinates coordinates = null;
         while (coordinates == null) {
             try {
@@ -40,9 +42,10 @@ public class WorkerScanner {
             try {
                 salary = dataSource.nextFloat();
             } catch (InputMismatchException e) {
-                System.err.println("Incorrect input! Try again.");
+                System.out.println("Wrong input! Try again!");
             }
         }
+
         Status status = null;
         while (status == null) {
             try {
@@ -70,6 +73,7 @@ public class WorkerScanner {
 
 
         Worker worker = new Worker(
+                id,
                 name,
                 coordinates,
                 salary,

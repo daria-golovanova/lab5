@@ -1,15 +1,11 @@
 package com.golovanova.model;
 
-//import com.sun.istack.internal.NotNull;
-
 import com.sun.istack.internal.NotNull;
-import lombok.Getter;
 
 import java.util.Objects;
 
 public class Coordinates {
     private static Double maxX = 721d; // - можно доставать из файлов .properties
-    @Getter
     private Double x; //Максимальное значение поля: 721, Поле не может быть null
     private Float y; //Поле не может быть null
 
@@ -18,19 +14,28 @@ public class Coordinates {
      * @param y should not be null
      */
     public Coordinates(@NotNull Double x, @NotNull Float y) {
-        // assert x != null;
         this.x = Math.min(x, maxX);
         this.y = y;
     }
 
-//    public Double getX() {
-//        return x;
-//    }
-
+    /**
+     * @return y
+     */
     public Float getY() {
         return y;
     }
 
+    /**
+     * @return x
+     */
+    public Double getX() {
+        return x;
+    }
+
+    /**
+     * @param o
+     * @return equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,11 +45,17 @@ public class Coordinates {
                 Objects.equals(y, that.y);
     }
 
+    /**
+     * @return hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
     }
 
+    /**
+     * @return toString
+     */
     @Override
     public String toString() {
         return "X:" + x + " Y:" + y;

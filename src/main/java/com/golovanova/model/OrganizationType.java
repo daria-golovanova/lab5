@@ -1,7 +1,8 @@
 package com.golovanova.model;
 
-import java.util.List;
-
+/**
+ *  enum of Organization Type
+ */
 public enum OrganizationType {
     COMMERCIAL,
     GOVERNMENT,
