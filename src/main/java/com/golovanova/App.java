@@ -6,8 +6,7 @@ import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
 import com.golovanova.utility.FileManager;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -16,36 +15,6 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-//        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("Ctrl+C Handled!");
-//            }
-//        }));
-        // Create barrier and set counddown counter to 1
-//        CountDownLatch doneSignal = new CountDownLatch(1);
-//
-//        Runtime.getRuntime().addShutdownHook(new Thread() {
-//
-//            /** This handler will be called on Control-C pressed */
-//            @Override
-//            public void run() {
-//                // Decrement counter.
-//                // It will became 0 and main thread who waits for this barrier could continue run (and fulfill all proper shutdown steps)
-//                doneSignal.countDown();
-//            }
-//        });
-//
-//
-//        // Here we enter wait state until control-c will be pressed
-//        try {
-//            doneSignal.await();
-//        } catch (InterruptedException e) {
-//        }
-
-        // Once ctrl-c pressed, barrier is open and we processed to
-        // shutdown steps here
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 try {
@@ -78,6 +47,60 @@ public class App {
             }
         }
 
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader buffer = new BufferedReader(fileReader);
+            String line = buffer.readLine();
+            String[] splitDot = line.split(",");
+            for (int i = 0; i < splitDot.length; i++) {
+                if (splitDot[i].contains("\"position\"")) {
+                    switch (splitDot[i]) {
+                        case "\"position\":\"ENGINEER\"":
+                        case "\"position\":\"HEAD_OF_DIVISION\"":
+                        case "\"position\":\"BAKER\"":
+                        case "\"position\":\"COOK\"":
+                            break;
+                        default: {
+                            System.out.println("Error! Field \"Position\" is incorrect!");
+                            System.exit(-1);
+                        }
+                    }
+
+                }
+
+                if (splitDot[i].contains("status")) {
+                    switch (splitDot[i]) {
+                        case "\"status\":\"HIRED\"":
+                        case "\"status\":\"REGULAR\"":
+                        case "\"status\":\"PROBATION\"":
+                            break;
+                        default: {
+                            System.out.println("Error! Field \"Status\" is incorrect!");
+                            System.exit(-1);
+                        }
+                    }
+                }
+                if (splitDot[i].contains("\"type\"")) {
+                    switch (splitDot[i]) {
+                        case "\"type\":\"COMMERCIAL\"}":
+                        case "\"type\":\"GOVERNMENT\"}":
+                        case "\"type\":\"TRUST\"}":
+                        case "\"type\":\"PRIVATE_LIMITED_COMPANY\"}":
+                        case "\"type\":\"OPEN_JOINT_STOCK_COMPANY\"}":
+                            break;
+                        default: {
+                            System.out.println("Error! Field \"OrganisationType\" is incorrect!");
+                            System.exit(-1);
+                        }
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FileManager fileManager = new FileManager(file);
         workers = fileManager.readCollection();
         //System.out.println(workers.stream().map(Worker::toString).collect(Collectors.joining("\n\n")));
@@ -113,7 +136,7 @@ public class App {
                     new ClearCommand().execute(workers);
                     break;
                 case execute_script:
-                    new ExecuteScriptCommand().execute("");
+                    new ExecuteScriptCommand().execute("script.txt");
                     break;
                 case exit:
                     new ExitCommand().execute();

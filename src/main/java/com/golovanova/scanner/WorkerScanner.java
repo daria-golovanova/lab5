@@ -4,6 +4,9 @@ import com.golovanova.data.DataSource;
 import com.golovanova.model.*;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
+
+import static com.golovanova.model.Status.*;
 
 public class WorkerScanner {
     private final DataSource dataSource;

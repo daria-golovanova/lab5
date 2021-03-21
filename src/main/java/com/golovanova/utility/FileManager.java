@@ -64,6 +64,7 @@ public class FileManager {
             collectionInfo.setInitTime(LocalDateTime.now());
 
             Worker.updateIdSequence(collection);
+
             return collection;
         } catch (FileNotFoundException exception) {
             System.err.println("Загрузочный файл не найден!");

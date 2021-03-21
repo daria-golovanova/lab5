@@ -39,7 +39,6 @@ public class Worker implements Comparable<Worker> {
     }
 
     //Поле не может быть null, Значение поля должно быть больше 0,
-    @Getter
     private Integer id;
     // Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -110,9 +109,9 @@ public class Worker implements Comparable<Worker> {
      * @return id
      */
 
-//    public Integer getId() {
-//        return id;
-//    }
+    public Integer getId() {
+        return id;
+    }
 
     /**
      * @return name
