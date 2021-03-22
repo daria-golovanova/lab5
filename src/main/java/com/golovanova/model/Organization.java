@@ -1,6 +1,8 @@
 package com.golovanova.model;
 
-import com.sun.istack.internal.NotNull;
+
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 

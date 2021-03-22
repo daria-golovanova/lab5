@@ -1,12 +1,1 @@
-sho
-update
-3
-anna
-14.0
-17.0
-122
-HIRED
-BAKER
-BMW
-123
-TRUST
+execute_script script.txt

@@ -1,8 +1,8 @@
 package com.golovanova.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.internal.NotNull;
-import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;

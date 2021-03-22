@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class FileManager {
+    
     private final Gson g = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
             .enableComplexMapKeySerialization()

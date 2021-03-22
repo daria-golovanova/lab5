@@ -34,6 +34,11 @@ public class ExecuteScriptCommand extends AbstractCommand {
             while (!dataSource.endOfData()) {
                 String line = dataSource.nextLine();
                 choseCommand(line, dataSource, workers, collectionInfo, fileManager);
+                if(line.contains("execute_script")) {
+                    if(line.split(" ")[1].equals(filename)) {
+                        throw new Exception("Recursive script");
+                    }
+                }
             }
 
         } catch (Exception e) {
