@@ -1,17 +1,21 @@
 package com.golovanova.scanner;
 
+import com.golovanova.data.DataSource;
 import com.golovanova.model.Coordinates;
 
-import java.util.Scanner;
-
 public class CoordinatesScanner {
+    private final DataSource dataSource;
+
+    public CoordinatesScanner(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public Coordinates scanCoordinates() {
         System.out.println("Input coordinates: ");
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Input x: ");
-        Double x = scanner.nextDouble();
+        Double x = dataSource.nextDouble();
         System.out.println("Input y: ");
-        Float y = scanner.nextFloat();
+        Float y = dataSource.nextFloat();
 
         return new Coordinates(x, y);
     }

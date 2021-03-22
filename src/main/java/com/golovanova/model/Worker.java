@@ -49,6 +49,7 @@ public class Worker implements Comparable<Worker> {
     private Float salary; //Поле может быть null, Значение поля должно быть больше 0
     @JsonIgnore
     private LocalDate startDate = LocalDate.now(); //Поле не может быть null
+    @NotNull
     private Position position; //Поле может быть null
     private Status status; //Поле не может быть null
     private Organization organization; //Поле может быть null

@@ -17,7 +17,6 @@ public class OrganisationScanner {
     public Organization scan() throws Exception {
         System.out.println("Input organisation's data: ");
         System.out.println("Input name: ");
-        dataSource.nextLine();
         String name = dataSource.nextLine();
         System.out.println("Input employees count: ");
         Long employeesCount = dataSource.nextLong();

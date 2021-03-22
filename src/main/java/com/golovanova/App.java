@@ -101,11 +101,15 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         FileManager fileManager = new FileManager(file);
         workers = fileManager.readCollection();
         //System.out.println(workers.stream().map(Worker::toString).collect(Collectors.joining("\n\n")));
         System.out.println("Use 'help' command for browsing the list of com.golovanova.commands.");
         ArrayList<CommandType> history = new ArrayList<>();
+        if (!file.canWrite()) {
+            System.out.println("This file cannot be overwritten!");
+        }
         while (true) {
             System.out.println("Enter command: ");
             String input = scanner.nextLine();
@@ -136,7 +140,9 @@ public class App {
                     new ClearCommand().execute(workers);
                     break;
                 case execute_script:
-                    new ExecuteScriptCommand().execute("script.txt");
+                    new ExecuteScriptCommand().execute(split[1], workers, collectionInfo, fileManager);
+//                    File file2 = new File(split[1]);
+//                    if (file2.canWrite())
                     break;
                 case exit:
                     new ExitCommand().execute();

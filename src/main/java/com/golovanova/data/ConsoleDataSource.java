@@ -11,26 +11,26 @@ public class ConsoleDataSource implements DataSource {
 
     @Override
     public String nextLine() {
-        return scanner.nextLine();
+        return new Scanner(System.in).nextLine();
     }
 
     @Override
     public Integer nextInt() {
-        return scanner.nextInt();
+        return new Scanner(System.in).nextInt();
     }
 
     @Override
     public Float nextFloat() {
-        return scanner.nextFloat();
+        return new Scanner(System.in).nextFloat();
     }
 
     @Override
     public Double nextDouble() {
-        return scanner.nextDouble();
+        return new Scanner(System.in).nextDouble();
     }
 
     @Override
     public Long nextLong() {
-        return scanner.nextLong();
+        return new Scanner(System.in).nextLong();
     }
 }

@@ -4,12 +4,10 @@ import com.golovanova.data.DataSource;
 import com.golovanova.model.*;
 
 import java.util.InputMismatchException;
-import java.util.Objects;
-
-import static com.golovanova.model.Status.*;
 
 public class WorkerScanner {
     private final DataSource dataSource;
+
     private EnumScanner<Position> positionScanner;
     private EnumScanner<Status> statusScanner;
     private OrganisationScanner organizationScanner;
@@ -20,7 +18,7 @@ public class WorkerScanner {
         positionScanner = new EnumScanner<>(dataSource, Position.class);
         statusScanner = new EnumScanner<>(dataSource, Status.class);
         organizationScanner = new OrganisationScanner(dataSource);
-        coordinatesScanner = new CoordinatesScanner();
+        coordinatesScanner = new CoordinatesScanner(dataSource);
     }
 
 
@@ -37,7 +35,6 @@ public class WorkerScanner {
             }
         }
         System.out.println("Input salary: ");
-        //TODO smth with float; check
         float salary = 0f;
         while (salary == 0f) {
             try {
@@ -46,28 +43,35 @@ public class WorkerScanner {
                 System.err.println("Incorrect input! Try again.");
             }
         }
+        System.out.println("All statuses: REGULAR, HIRED, PROBATION");
         Status status = null;
         while (status == null) {
             try {
                 status = statusScanner.scanEnum();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Status!");
             }
         }
+        System.out.println("All positions: LEAD_DEVELOPER, HEAD_OF_DIVISION, ENGINEER, BAKER, COOK");
         Position position = null;
         while (position == null) {
             try {
                 position = positionScanner.scanEnum();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Position!");
             }
         }
+        System.out.println("All OrganisationTypes: COMMERCIAL, GOVERNMENT, TRUST, " +
+                "PRIVATE_LIMITED_COMPANY, PEN_JOINT_STOCK_COMPANY");
         Organization organization = null;
         while (organization == null) {
             try {
                 organization = organizationScanner.scan();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Organization!");
             }
         }
 

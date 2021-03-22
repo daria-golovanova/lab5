@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 
 public class SpecialWorkerScanner {
     private final DataSource dataSource;
+
     private EnumScanner<Position> positionScanner;
     private EnumScanner<Status> statusScanner;
     private OrganisationScanner organizationScanner;
@@ -17,16 +18,16 @@ public class SpecialWorkerScanner {
         positionScanner = new EnumScanner<>(dataSource, Position.class);
         statusScanner = new EnumScanner<>(dataSource, Status.class);
         organizationScanner = new OrganisationScanner(dataSource);
-        coordinatesScanner = new CoordinatesScanner();
+        coordinatesScanner = new CoordinatesScanner(dataSource);
     }
 
 
     public Worker scan() {
         System.out.println("Input data of worker: ");
-        System.out.println("Input name: ");
-        String name = dataSource.nextLine();
         System.out.println("Input id: ");
         Integer id = dataSource.nextInt();
+        System.out.println("Input name: ");
+        String name = dataSource.nextLine();
         Coordinates coordinates = null;
         while (coordinates == null) {
             try {
@@ -36,22 +37,21 @@ public class SpecialWorkerScanner {
             }
         }
         System.out.println("Input salary: ");
-        //TODO smth with float; check
         float salary = 0f;
         while (salary == 0f) {
             try {
                 salary = dataSource.nextFloat();
             } catch (InputMismatchException e) {
-                System.out.println("Wrong input! Try again!");
+                System.err.println("Incorrect input! Try again.");
             }
         }
-
         Status status = null;
         while (status == null) {
             try {
                 status = statusScanner.scanEnum();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Status!");
             }
         }
         Position position = null;
@@ -59,7 +59,8 @@ public class SpecialWorkerScanner {
             try {
                 position = positionScanner.scanEnum();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Position!");
             }
         }
         Organization organization = null;
@@ -67,7 +68,8 @@ public class SpecialWorkerScanner {
             try {
                 organization = organizationScanner.scan();
             } catch (Exception e) {
-                System.err.println("Не получилось считать ENUM!");
+                e.printStackTrace();
+                System.err.println("Не получилось считать Organization!");
             }
         }
 
@@ -83,4 +85,81 @@ public class SpecialWorkerScanner {
 
         return worker;
     }
+//    private final DataSource dataSource;
+//
+//    private final EnumScanner<Position> positionScanner;
+//    private final EnumScanner<Status> statusScanner;
+//    private final OrganisationScanner organizationScanner;
+//    private final CoordinatesScanner coordinatesScanner;
+//
+//    public SpecialWorkerScanner(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//        positionScanner = new EnumScanner<>(dataSource, Position.class);
+//        statusScanner = new EnumScanner<>(dataSource, Status.class);
+//        organizationScanner = new OrganisationScanner(dataSource);
+//        coordinatesScanner = new CoordinatesScanner(dataSource);
+//    }
+//
+//    public Worker scan() {
+//        System.out.println("Input data of worker: ");
+//        System.out.println("Input name: ");
+//        String name = dataSource.nextLine();
+//        System.out.println("Input id: ");
+//        Integer id = dataSource.nextInt();
+//        Coordinates coordinates = null;
+//        while (coordinates == null) {
+//            try {
+//                coordinates = coordinatesScanner.scanCoordinates();
+//            } catch (Exception e) {
+//                System.err.println("Incorrect input! Try again.");
+//            }
+//        }
+//        System.out.println("Input salary: ");
+//        //TODO smth with float; check
+//        float salary = 0f;
+//        while (salary == 0f) {
+//            try {
+//                salary = dataSource.nextFloat();
+//            } catch (InputMismatchException e) {
+//                System.out.println("Wrong input! Try again!");
+//            }
+//        }
+//
+//        Status status = null;
+//        while (status == null) {
+//            try {
+//                status = statusScanner.scanEnum();
+//            } catch (Exception e) {
+//                System.err.println("Не получилось считать ENUM!");
+//            }
+//        }
+//        Position position = null;
+//        while (position == null) {
+//            try {
+//                position = positionScanner.scanEnum();
+//            } catch (Exception e) {
+//                System.err.println("Не получилось считать ENUM!");
+//            }
+//        }
+//        Organization organization = null;
+//        while (organization == null) {
+//            try {
+//                organization = organizationScanner.scan();
+//            } catch (Exception e) {
+//                System.err.println("Не получилось считать ENUM!");
+//            }
+//        }
+//
+//
+//        Worker worker = new Worker(
+//                id,
+//                name,
+//                coordinates,
+//                salary,
+//                position,
+//                status,
+//                organization);
+//
+//        return worker;
+//    }
 }

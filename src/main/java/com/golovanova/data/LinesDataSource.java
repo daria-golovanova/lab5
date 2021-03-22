@@ -15,30 +15,46 @@ public class LinesDataSource implements DataSource {
         this.data = Arrays.asList(string.split("\n"));
     }
 
+    public boolean endOfData() {
+        return cursor >= data.size();
+    }
+
     @Override
     public String nextLine() {
-        String line = data.get(cursor);
+        String value = data.get(cursor);
         cursor++;
-        return line;
+        return value;
     }
 
     @Override
     public Integer nextInt() {
-        return null;
+        String str = data.get(cursor);
+        Integer value = Integer.parseInt(str);
+        cursor++;
+        return value;
     }
 
     @Override
     public Float nextFloat() {
-        return null;
+        String str = data.get(cursor);
+        Float value = Float.parseFloat(str);
+        cursor++;
+        return value;
     }
 
     @Override
     public Double nextDouble() {
-        return null;
+        String str = data.get(cursor);
+        Double value = Double.parseDouble(str);
+        cursor++;
+        return value;
     }
 
     @Override
     public Long nextLong() {
-        return null;
+        String str = data.get(cursor);
+        Long value = Long.parseLong(str);
+        cursor++;
+        return value;
     }
 }
