@@ -26,6 +26,10 @@ public class WorkerScanner {
         System.out.println("Input data of worker: ");
         System.out.println("Input name: ");
         String name = dataSource.nextLine();
+        while (name.trim().equals("")) {
+            System.out.println("Name is consist of \" \", please enter the normal one!");
+            name = dataSource.nextLine();
+        }
         Coordinates coordinates = null;
         while (coordinates == null) {
             try {
@@ -49,8 +53,7 @@ public class WorkerScanner {
             try {
                 status = statusScanner.scanEnum();
             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Не получилось считать Status!");
+                System.err.println("You have typed wrong Status!");
             }
         }
         System.out.println("All positions: LEAD_DEVELOPER, HEAD_OF_DIVISION, ENGINEER, BAKER, COOK");
@@ -59,19 +62,17 @@ public class WorkerScanner {
             try {
                 position = positionScanner.scanEnum();
             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Не получилось считать Position!");
+                System.err.println("You have typed wrong Position!");
             }
         }
         System.out.println("All OrganisationTypes: COMMERCIAL, GOVERNMENT, TRUST, " +
-                "PRIVATE_LIMITED_COMPANY, PEN_JOINT_STOCK_COMPANY");
+                "PRIVATE_LIMITED_COMPANY, OPEN_JOINT_STOCK_COMPANY");
         Organization organization = null;
         while (organization == null) {
             try {
                 organization = organizationScanner.scan();
             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Не получилось считать Organization!");
+                System.err.println("You have typed wrong Organization!");
             }
         }
 

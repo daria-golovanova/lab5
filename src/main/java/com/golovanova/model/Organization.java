@@ -10,6 +10,7 @@ public class Organization {
     private String name;
     private Long employeesCount; //Поле не может быть null, Значение поля должно быть больше 0
     private OrganizationType type; //Поле не может быть null
+    private final int minEmployeesCount = 1;
 
     /**
      * @param employeesCount
@@ -17,7 +18,7 @@ public class Organization {
      * @param name
      */
     public Organization(@NotNull Long employeesCount, @NotNull OrganizationType type, @NotNull String name) {
-        this.employeesCount = employeesCount;
+        this.employeesCount = Math.max(minEmployeesCount, employeesCount);
         this.type = type;
         this.name = name;
     }

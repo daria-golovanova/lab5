@@ -5,6 +5,7 @@ import com.golovanova.model.Worker;
 //import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayDeque;
+import java.util.Iterator;
 
 //@Slf4j //Slf4j, logback.xml - читать
 public class RemoveLowerCommand extends AbstractCommand {
@@ -27,10 +28,18 @@ public class RemoveLowerCommand extends AbstractCommand {
             throw new WorkerNotFoundException("wrong id: " + elementIdStr);
         }
 
-        for (Worker w : workers) {
+        Iterator<Worker> iterator = workers.iterator();
+
+        while(iterator.hasNext()){
+            Worker w = iterator.next();
             if (w.compareTo(worker) == -1) {
-                workers.remove(w);
-            }
+            iterator.remove(); }
         }
+
+        //        for (Worker w : workers) {
+//            if (w.compareTo(worker) == -1) {
+//                workers.remove(w);
+//            }
+//        }
     }
 }

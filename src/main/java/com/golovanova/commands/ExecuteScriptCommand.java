@@ -12,6 +12,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class ExecuteScriptCommand extends AbstractCommand {
@@ -24,25 +25,33 @@ public class ExecuteScriptCommand extends AbstractCommand {
                         FileManager fileManager) {
         try {
             File file = new File(filename);
-            if(!file.canRead())
+            if (!file.canRead())
                 file.setReadable(true);
 
 
             List<String> strings = Files.readAllLines(file.toPath());
             LinesDataSource dataSource = new LinesDataSource(strings);
 
+            HashSet<String> fileNames = new HashSet<String>();
+            fileNames.add("1");
+
             while (!dataSource.endOfData()) {
                 String line = dataSource.nextLine();
                 choseCommand(line, dataSource, workers, collectionInfo, fileManager);
-                if(line.contains("execute_script")) {
-                    if(line.split(" ")[1].equals(filename)) {
-                        throw new Exception("Recursive script");
-                    }
-                }
+//                if (fileNames.contains(line.split(" ")[1])) {
+//                    System.err.println("Recursion is prohibited!");
+//                    continue;
+//                }
+//                if (line.contains("execute_script")) {
+//                    fileNames.add(line.split(" ")[1]);
+//                    if (fileNames.contains(line.split(" ")[1])) {
+//                        System.err.println("Recursion is prohibited!");
+//                        continue;
+//                    }
+//                }
             }
-
         } catch (Exception e) {
-            System.err.println("File cannot be read.");
+            System.err.println("File cannot be read!");
         }
 
     }
@@ -81,6 +90,7 @@ public class ExecuteScriptCommand extends AbstractCommand {
                 new ClearCommand().execute(workers);
                 break;
             case execute_script:
+                //System.out.println("Recursion is prohibited.");
                 new ExecuteScriptCommand().execute(line.split(" ")[1], workers, collectionInfo, fileManager);
                 break;
             case exit:
@@ -112,14 +122,14 @@ public class ExecuteScriptCommand extends AbstractCommand {
                 try {
                     new UpdateCommand(dataSource).execute(workers);
                 } catch (WorkerNotFoundException e) {
-                    e.printStackTrace();
+                    System.err.println("This worker does not exists!");
                 }
                 break;
             case no_command:
-                System.out.println("No such command. Try again.");
+                System.out.println("No such command. Try again!");
                 break;
             default:
-                System.err.println("Такой команды не существует. Попробуйте ещё раз.");
+                System.err.println("No such command. Try again!");
         }
     }
 }

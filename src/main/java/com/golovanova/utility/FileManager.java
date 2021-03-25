@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class FileManager {
-    
+
     private final Gson g = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
             .enableComplexMapKeySerialization()
@@ -31,32 +31,33 @@ public class FileManager {
 
     public void writeCollection(Collection<?> collection) {
         if (file == null || !file.isFile() || !file.exists() || !file.canWrite()) {
-            System.err.println("File is corrupted.");
+            System.err.println("Cannot use this file!");
             return;
         }
 
         try (PrintWriter collectionFileWriter = new PrintWriter(file)) {
             collectionFileWriter.write(g.toJson(collection));
-            System.out.println("Коллекция успешна сохранена в файл!");
+            System.out.println("Collection successfully saved to file!");
         } catch (IOException exception) {
-            System.err.println("Загрузочный файл является директорией/не может быть открыт!");
+            System.err.println("The boot file is a directory/cannot be opened!");
         }
     }
 
     public ArrayDeque<Worker> readCollection() {
         if (file == null) {
-            System.err.println("File is null.");
+            System.err.println("File is null!");
             return new ArrayDeque<>();
         }
 
         if (!file.isFile() || !file.exists() || !file.canRead()) {
-            System.err.println("File is corrupted.");
+            System.err.println("File is corrupted!");
             return new ArrayDeque<>();
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             ArrayDeque<Worker> collection = new ArrayDeque<>();
-            Type collectionType = new TypeToken<ArrayDeque<Worker>>() {}.getType();
+            Type collectionType = new TypeToken<ArrayDeque<Worker>>() {
+            }.getType();
             collection = g.fromJson(reader.readLine().trim(), collectionType);
             System.out.println("Collection is downloaded!");
 
@@ -68,13 +69,13 @@ public class FileManager {
 
             return collection;
         } catch (FileNotFoundException exception) {
-            System.err.println("Загрузочный файл не найден!");
+            System.err.println("The boot file was not found!");
         } catch (NoSuchElementException exception) {
-            System.err.println("Загрузочный файл пуст!");
+            System.err.println("The boot file is empty!");
         } catch (JsonParseException | NullPointerException exception) {
-            System.err.println("В загрузочном файле не обнаружена необходимая коллекция!" + exception);
+            System.err.println("The required collection was not found in the boot file!" + exception);
         } catch (IllegalStateException | IOException exception) {
-            System.err.println("Непредвиденная ошибка!");
+            System.err.println("Unexpected error!");
             System.exit(0);
         }
 
@@ -88,7 +89,8 @@ public class FileManager {
         }
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             ArrayDeque<Worker> collection = new ArrayDeque<>();
-            Type type = new TypeToken<Worker>() {}.getType();
+            Type type = new TypeToken<Worker>() {
+            }.getType();
             Worker w = g.fromJson(reader.readLine().trim(), type);
             collection.add(w);
 
@@ -97,9 +99,7 @@ public class FileManager {
 
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return new ArrayDeque<>();

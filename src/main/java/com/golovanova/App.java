@@ -5,6 +5,7 @@ import com.golovanova.exceptions.WorkerNotFoundException;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
 import com.golovanova.utility.FileManager;
+import com.google.gson.JsonParseException;
 
 import java.io.*;
 import java.util.ArrayDeque;
@@ -19,13 +20,12 @@ public class App {
             public void run() {
                 try {
                     Thread.sleep(100);
-                    System.out.println("Shutting down...");
-
+                    System.out.println("Shutting 123 down...");
                 } catch (NoSuchElementException e) {
                     System.err.println("CTRL+D Program stops");
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    e.printStackTrace();
+                    System.err.println("CTRL+D Program stops");
                 }
             }
         });
@@ -35,6 +35,7 @@ public class App {
         CollectionInfo collectionInfo = new CollectionInfo(workers);
 
         String filePath = "data.json";
+        //TODO
         if (args.length > 0)
             filePath = args[0];
 
@@ -43,11 +44,11 @@ public class App {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("New file was created!");
             }
         }
 
-        try {
+         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader buffer = new BufferedReader(fileReader);
             String line = buffer.readLine();
@@ -96,11 +97,16 @@ public class App {
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         } catch (FileNotFoundException exception) {
+             System.err.println("Загрузочный файл не найден!");
+         } catch (NoSuchElementException exception) {
+             System.err.println("Загрузочный файл пуст!");
+         } catch (JsonParseException | NullPointerException exception) {
+             System.err.println("В загрузочном файле не обнаружена необходимая коллекция!" + exception);
+         } catch (IllegalStateException | IOException exception) {
+             System.err.println("Непредвиденная ошибка!");
+             System.exit(0);
+         }
 
         FileManager fileManager = new FileManager(file);
         workers = fileManager.readCollection();
@@ -141,8 +147,6 @@ public class App {
                     break;
                 case execute_script:
                     new ExecuteScriptCommand().execute(split[1], workers, collectionInfo, fileManager);
-//                    File file2 = new File(split[1]);
-//                    if (file2.canWrite())
                     break;
                 case exit:
                     new ExitCommand().execute();
@@ -180,7 +184,7 @@ public class App {
                     System.out.println("No such command. Try again.");
                     break;
                 default:
-                    System.err.println("Такой команды не существует. Попробуйте ещё раз.");
+                    System.err.println("No such command. Try again.");
             }
         }
     }

@@ -18,6 +18,10 @@ public class OrganisationScanner {
         System.out.println("Input organisation's data: ");
         System.out.println("Input name: ");
         String name = dataSource.nextLine();
+        while (name.trim().equals("")) {
+            System.out.println("Name is consist of \" \", please enter the normal one!");
+            name = dataSource.nextLine();
+        }
         System.out.println("Input employees count: ");
         Long employeesCount = dataSource.nextLong();
         OrganizationType type = organizationTypeScanner.scanEnum();
