@@ -98,13 +98,13 @@ public class App {
             }
 
          } catch (FileNotFoundException exception) {
-             System.err.println("Загрузочный файл не найден!");
+             System.err.println("The boot file was not found!");
          } catch (NoSuchElementException exception) {
-             System.err.println("Загрузочный файл пуст!");
+             System.err.println("The boot file is empty!");
          } catch (JsonParseException | NullPointerException exception) {
-             System.err.println("В загрузочном файле не обнаружена необходимая коллекция!" + exception);
+             System.err.println("The required collection was not found in the boot file!" + exception);
          } catch (IllegalStateException | IOException exception) {
-             System.err.println("Непредвиденная ошибка!");
+             System.err.println("Unexpected error!");
              System.exit(0);
          }
 
@@ -161,7 +161,7 @@ public class App {
                     try {
                         new RemoveLowerCommand().execute(split[1], workers);
                     } catch (WorkerNotFoundException e) {
-                        e.printStackTrace();
+                        System.out.println("Worker was not found!");
                     }
                     break;
                 case filter_by_organization:
@@ -177,7 +177,7 @@ public class App {
                     try {
                         new UpdateCommand().execute(workers);
                     } catch (WorkerNotFoundException e) {
-                        e.printStackTrace();
+                        System.out.println("Worker was not found!");
                     }
                     break;
                 case no_command:
