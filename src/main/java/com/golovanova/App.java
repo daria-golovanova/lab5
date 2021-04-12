@@ -5,6 +5,7 @@ import com.golovanova.exceptions.WorkerNotFoundException;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
 import com.golovanova.utility.FileManager;
+import com.golovanova.utility.RecursionChecker;
 import com.google.gson.JsonParseException;
 
 import java.io.*;
@@ -14,8 +15,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
+    private RecursionChecker recursionChecker = new RecursionChecker();
 
     public static void main(String[] args) {
+        new App().start(args);
+    }
+
+    private void start(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 try {
@@ -35,7 +41,7 @@ public class App {
         CollectionInfo collectionInfo = new CollectionInfo(workers);
 
         String filePath = "data.json";
-        //TODO
+
         if (args.length > 0)
             filePath = args[0];
 
@@ -122,6 +128,18 @@ public class App {
             String[] split = input.split(" ");
 
             CommandType commandType = CommandDecoder.decode(input);
+
+            if(commandType == CommandType.execute_script) {
+                try {
+                    if(recursionChecker.checkRecursionIsPresent(split[1])) {
+                        System.out.println("Recursion is prohibited!");
+                        continue;
+                    }
+                } catch (IOException e) {
+                    System.out.println("Problems with file: " + e.getMessage());
+                    System.exit(-1);
+                }
+            }
             history.add(commandType);
             switch (commandType) {
                 case help:

@@ -10,12 +10,11 @@ import com.golovanova.utility.FileManager;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class ExecuteScriptCommand extends AbstractCommand {
+    private Stack<String> fileNames = new Stack<>();
+
     public ExecuteScriptCommand() {
         super("execute_script file_name", "read and execute the script from the specified " +
                 "file. The script contains com.golovanova.commands in the same form as the user enters them interactively.");
@@ -32,23 +31,9 @@ public class ExecuteScriptCommand extends AbstractCommand {
             List<String> strings = Files.readAllLines(file.toPath());
             LinesDataSource dataSource = new LinesDataSource(strings);
 
-            HashSet<String> fileNames = new HashSet<String>();
-            fileNames.add("1");
-
             while (!dataSource.endOfData()) {
                 String line = dataSource.nextLine();
                 choseCommand(line, dataSource, workers, collectionInfo, fileManager);
-//                if (fileNames.contains(line.split(" ")[1])) {
-//                    System.err.println("Recursion is prohibited!");
-//                    continue;
-//                }
-//                if (line.contains("execute_script")) {
-//                    fileNames.add(line.split(" ")[1]);
-//                    if (fileNames.contains(line.split(" ")[1])) {
-//                        System.err.println("Recursion is prohibited!");
-//                        continue;
-//                    }
-//                }
             }
         } catch (Exception e) {
             System.err.println("File cannot be read!");
