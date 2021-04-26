@@ -1,6 +1,5 @@
 package com.golovanova.commands;
 
-import com.golovanova.model.Organization;
 import com.golovanova.model.Worker;
 
 import java.util.ArrayDeque;

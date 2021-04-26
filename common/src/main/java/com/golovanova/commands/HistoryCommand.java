@@ -6,7 +6,7 @@ public class HistoryCommand extends AbstractCommand {
     private final int COMMAND_HISTORY_SIZE = 11;
 
     public HistoryCommand() {
-        super("history", "print the last 11 com.golovanova.commands (without their arguments)");
+        super("history", "print the last 11 golovanova.golovanova.commands (without their arguments)");
     }
 
 

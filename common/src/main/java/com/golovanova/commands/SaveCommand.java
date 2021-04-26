@@ -1,6 +1,6 @@
 package com.golovanova.commands;
 
-import com.golovanova.CollectionInfo;
+import com.golovanova.utility.CollectionInfo;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.FileManager;
 

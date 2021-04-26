@@ -1,7 +1,7 @@
 package com.golovanova.commands;
 
-import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.data.DataSource;
+import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.model.Worker;
 import com.golovanova.scanner.WorkerScanner;
 

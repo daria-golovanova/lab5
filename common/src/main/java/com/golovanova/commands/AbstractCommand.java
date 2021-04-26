@@ -1,8 +1,15 @@
 package com.golovanova.commands;
 
-public abstract class AbstractCommand {
+import java.io.Serializable;
+
+public abstract class AbstractCommand implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
+
     private String name;
     private String description;
+
+    public AbstractCommand() {
+    }
 
     public AbstractCommand(String name, String description) {
         this.name = name;

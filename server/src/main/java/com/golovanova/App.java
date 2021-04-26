@@ -2,12 +2,14 @@ package com.golovanova;
 
 import com.golovanova.commands.*;
 import com.golovanova.exceptions.WorkerNotFoundException;
-import com.golovanova.model.Worker;
-import com.golovanova.utility.CommandDecoder;
+import com.golovanova.utility.CollectionInfo;
 import com.golovanova.utility.FileManager;
 import com.golovanova.utility.RecursionChecker;
+import com.golovanova.model.Worker;
+import com.golovanova.utility.CommandDecoder;
 import com.google.gson.JsonParseException;
 
+import javax.sound.midi.Receiver;
 import java.io.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -22,6 +24,10 @@ public class App {
     }
 
     private void start(String[] args) {
+
+        Receiver receiver;
+        int port;
+
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 try {
@@ -54,7 +60,7 @@ public class App {
             }
         }
 
-         try {
+        try {
             FileReader fileReader = new FileReader(file);
             BufferedReader buffer = new BufferedReader(fileReader);
             String line = buffer.readLine();
@@ -103,21 +109,39 @@ public class App {
                 }
             }
 
-         } catch (FileNotFoundException exception) {
-             System.err.println("The boot file was not found!");
-         } catch (NoSuchElementException exception) {
-             System.err.println("The boot file is empty!");
-         } catch (JsonParseException | NullPointerException exception) {
-             System.err.println("The required collection was not found in the boot file!" + exception);
-         } catch (IllegalStateException | IOException exception) {
-             System.err.println("Unexpected error!");
-             System.exit(0);
-         }
+        } catch (FileNotFoundException exception) {
+            System.err.println("The boot file was not found!");
+        } catch (NoSuchElementException exception) {
+            System.err.println("The boot file is empty!");
+        } catch (JsonParseException | NullPointerException exception) {
+            System.err.println("The required collection was not found in the boot file!" + exception);
+        } catch (IllegalStateException | IOException exception) {
+            System.err.println("Unexpected error!");
+            System.exit(0);
+        }
 
         FileManager fileManager = new FileManager(file);
         workers = fileManager.readCollection();
+
+//        System.out.print("Введите порт: ");
+//        try {
+//            port = Integer.parseInt(scanner.nextLine());
+//        } catch (NumberFormatException e) {
+//            System.err.println("Порт должен быть целым числом от 0 до 65535, клиент будет отключен.");
+//            System.exit(-1);
+//        }
+//        try {
+//            receiver = new Receiver(port, true);
+//            receiver.startListening();
+//        } catch (IOException e) {
+//            System.out.println("Не получилось запустить клиент: " + e.toString());
+//        }
+//
+//        System.out.println("Добро пожаловать!\n"  +
+//                "Чтобы получить справку по командам, введите команду help.\n");
+
         //System.out.println(workers.stream().map(Worker::toString).collect(Collectors.joining("\n\n")));
-        System.out.println("Use 'help' command for browsing the list of com.golovanova.commands.");
+        //System.out.println("Use 'help' command for browsing the list of golovanova.golovanova.commands.");
         ArrayList<CommandType> history = new ArrayList<>();
         if (!file.canWrite()) {
             System.out.println("This file cannot be overwritten!");
@@ -129,9 +153,9 @@ public class App {
 
             CommandType commandType = CommandDecoder.decode(input);
 
-            if(commandType == CommandType.execute_script) {
+            if (commandType == CommandType.execute_script) {
                 try {
-                    if(recursionChecker.checkRecursionIsPresent(split[1])) {
+                    if (recursionChecker.checkRecursionIsPresent(split[1])) {
                         System.out.println("Recursion is prohibited!");
                         continue;
                     }

@@ -2,7 +2,6 @@ package com.golovanova.commands;
 
 import com.golovanova.exceptions.WorkerNotFoundException;
 import com.golovanova.model.Worker;
-//import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayDeque;
 import java.util.Iterator;

@@ -1,23 +1,26 @@
 package com.golovanova.commands;
 
-import com.golovanova.CollectionInfo;
 import com.golovanova.data.DataSource;
 import com.golovanova.data.LinesDataSource;
 import com.golovanova.exceptions.WorkerNotFoundException;
+import com.golovanova.utility.CollectionInfo;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
 import com.golovanova.utility.FileManager;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class ExecuteScriptCommand extends AbstractCommand {
     private Stack<String> fileNames = new Stack<>();
 
     public ExecuteScriptCommand() {
         super("execute_script file_name", "read and execute the script from the specified " +
-                "file. The script contains com.golovanova.commands in the same form as the user enters them interactively.");
+                "file. The script contains golovanova.golovanova.commands in the same form as the user enters them interactively.");
     }
 
     public void execute(String filename, ArrayDeque<Worker> workers, CollectionInfo collectionInfo,

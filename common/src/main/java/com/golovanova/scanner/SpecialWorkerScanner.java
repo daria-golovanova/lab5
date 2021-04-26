@@ -3,6 +3,7 @@ package com.golovanova.scanner;
 import com.golovanova.data.DataSource;
 import com.golovanova.model.*;
 
+
 import java.util.InputMismatchException;
 
 public class SpecialWorkerScanner {

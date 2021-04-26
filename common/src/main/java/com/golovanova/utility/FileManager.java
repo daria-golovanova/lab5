@@ -1,12 +1,11 @@
 package com.golovanova.utility;
 
-import com.golovanova.CollectionInfo;
 import com.golovanova.adapter.ZonedDateTimeAdapter;
-import com.golovanova.model.Worker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.golovanova.model.Worker;
 
 import java.io.*;
 import java.lang.reflect.Type;
