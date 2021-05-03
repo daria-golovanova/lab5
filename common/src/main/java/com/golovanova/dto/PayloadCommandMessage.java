@@ -1,22 +1,19 @@
 package com.golovanova.dto;
 
-import com.golovanova.commands.AbstractCommand;
-import com.golovanova.model.Worker;
-
-import java.util.List;
+import com.golovanova.commands.CommandType;
 
 public class PayloadCommandMessage implements CommandMessage {
-    private AbstractCommand abstractCommand;
+    private CommandType commandType;
     private Payload payload;
 
-    public PayloadCommandMessage(AbstractCommand abstractCommand, Payload payload) {
-        this.abstractCommand = abstractCommand;
+    public PayloadCommandMessage(CommandType commandType, Payload payload) {
+        this.commandType = commandType;
         this.payload = payload;
     }
 
     @Override
-    public AbstractCommand getCommand() {
-        return abstractCommand;
+    public CommandType getCommandType() {
+        return commandType;
     }
 
     public Payload getPayload() {

@@ -1,19 +1,19 @@
 package com.golovanova.dto;
 
-import com.golovanova.commands.AbstractCommand;
+import com.golovanova.commands.CommandType;
 
 public class StringCommandMessage implements CommandMessage {
-    private AbstractCommand abstractCommand;
+    private CommandType commandType;
     private String argument;
 
-    public StringCommandMessage(AbstractCommand abstractCommand, String argument) {
-        this.abstractCommand = abstractCommand;
+    public StringCommandMessage(CommandType commandType, String argument) {
+        this.commandType = commandType;
         this.argument = argument;
     }
-
+    
     @Override
-    public AbstractCommand getCommand() {
-        return abstractCommand;
+    public CommandType getCommandType() {
+        return commandType;
     }
 
     public String getArgument() {

@@ -1,16 +1,16 @@
 package com.golovanova.dto;
 
-import com.golovanova.commands.AbstractCommand;
+import com.golovanova.commands.CommandType;
 
-public class SimpleCommandMessage implements CommandMessage{
-    private AbstractCommand abstractCommand;
+public class SimpleCommandMessage implements CommandMessage {
+    private CommandType commandType;
 
-    public SimpleCommandMessage(AbstractCommand abstractCommand) {
-        this.abstractCommand = abstractCommand;
+    public SimpleCommandMessage(CommandType commandType) {
+        this.commandType = commandType;
     }
 
     @Override
-    public AbstractCommand getCommand() {
-        return abstractCommand;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }
