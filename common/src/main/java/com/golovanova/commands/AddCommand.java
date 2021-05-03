@@ -5,21 +5,23 @@ import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.model.Worker;
 import com.golovanova.scanner.WorkerScanner;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Scanner;
 
-public class AddCommand extends AbstractCommand {
+public class AddCommand extends AbstractCommand implements Serializable {
     private DataSource dataSource;
     private WorkerScanner workerScanner;
+    static final long SerialVersionUID = -4862926644813433707L;
 
     public AddCommand() {
-        super("add {element}", "add a new item to the collection");
+        super(CommandType.add);
         dataSource = new ConsoleDataSource(new Scanner(System.in));
         workerScanner = new WorkerScanner(dataSource);
     }
 
     public AddCommand(DataSource dataSource) {
-        super("add {element}", "add a new item to the collection");
+        super(CommandType.add);
         this.dataSource = dataSource;
         workerScanner = new WorkerScanner(dataSource);
     }

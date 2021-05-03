@@ -2,12 +2,14 @@ package com.golovanova.commands;
 
 import com.golovanova.model.Worker;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 
-public class ShowCommand extends AbstractCommand {
+public class ShowCommand extends AbstractCommand implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
+
     public ShowCommand() {
-        super("show", "output all elements of the collection " +
-                "in a string representation to the standard output stream");
+        super(CommandType.show);
     }
 
     public void execute(ArrayDeque<Worker> workers) {

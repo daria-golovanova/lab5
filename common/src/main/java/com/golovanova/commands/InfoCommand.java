@@ -2,14 +2,15 @@ package com.golovanova.commands;
 
 import com.golovanova.utility.CollectionInfo;
 
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayDeque;
 
-public class InfoCommand extends AbstractCommand {
-
+public class InfoCommand extends AbstractCommand implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
 
     public InfoCommand() {
-        super("info", "display information about the collection");
+        super(CommandType.info);
     }
 
     public void execute(ArrayDeque workers, CollectionInfo collectionInfo) {

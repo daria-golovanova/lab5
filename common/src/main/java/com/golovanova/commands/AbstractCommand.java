@@ -5,40 +5,30 @@ import java.io.Serializable;
 public abstract class AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
 
-    private String name;
-    private String description;
+    private CommandType commandType;
 
-    public AbstractCommand() {
+    public AbstractCommand(CommandType commandType) {
+        this.commandType = CommandType.help;
     }
 
-    public AbstractCommand(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
+    public CommandType getCommandType() {
+        return commandType;
     }
 
     @Override
     public String toString() {
-        return name + " (" + description + ")";
-    };
-
-    public int hashCode() {
-        return name.hashCode() + description.hashCode();
+        return commandType.toString();
     }
 
+    public int hashCode() {
+        return commandType.hashCode();
+    }
 
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         AbstractCommand other = (AbstractCommand) obj;
-        return name.equals(other.name) && description.equals(other.description);
+        return commandType.equals(other.commandType);
     }
 }

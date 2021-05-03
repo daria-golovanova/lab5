@@ -2,14 +2,15 @@ package com.golovanova.commands;
 
 import com.golovanova.model.Worker;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 
-public class FilterByOrganizationCommand extends AbstractCommand {
-    public FilterByOrganizationCommand() {
-        super("filter_by_organization organization", "output elements whose organization" +
-                " field value is equal to the specified value");
-    }
+public class FilterByOrganizationCommand extends AbstractCommand implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
 
+    public FilterByOrganizationCommand() {
+        super(CommandType.filter_by_organization);
+    }
 
     public void execute (ArrayDeque<Worker> workers, String organisationName) {
         for (Worker w : workers) {

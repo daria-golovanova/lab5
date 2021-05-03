@@ -1,8 +1,11 @@
 package com.golovanova.commands;
 
-public class ExitCommand extends AbstractCommand {
+import java.io.Serializable;
+
+public class ExitCommand extends AbstractCommand implements Serializable { ;
+    static final long SerialVersionUID = -4862926644813433707L;
     public ExitCommand() {
-        super("exit", "end the program (without saving it to a file)");
+        super(CommandType.exit);
     }
 
     public void execute() {

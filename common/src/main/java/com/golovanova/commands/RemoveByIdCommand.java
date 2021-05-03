@@ -2,12 +2,14 @@ package com.golovanova.commands;
 
 import com.golovanova.model.Worker;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 
-public class RemoveByIdCommand extends AbstractCommand {
+public class RemoveByIdCommand extends AbstractCommand implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
+
     public RemoveByIdCommand() {
-        super("remove_by_id id",
-                "delete an item from the collection by its id");
+        super(CommandType.remove_by_id);
     }
 
     public void execute(ArrayDeque<Worker> workers, int argument) {

@@ -6,23 +6,23 @@ import com.golovanova.data.DataSource;
 import com.golovanova.model.Worker;
 import com.golovanova.scanner.SpecialWorkerScanner;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Scanner;
 
-public class UpdateCommand extends AbstractCommand {
+public class UpdateCommand extends AbstractCommand implements Serializable {
     private DataSource dataSource;
     private SpecialWorkerScanner workerScanner;
+    static final long SerialVersionUID = -4862926644813433707L;
 
     public UpdateCommand() {
-        super("update id {element}", "update the value of a collection " +
-                "element whose id is equal to the specified one");
+        super(CommandType.update);
         dataSource = new ConsoleDataSource(new Scanner(System.in));
         workerScanner = new SpecialWorkerScanner(dataSource);
     }
 
     public UpdateCommand(DataSource dataSource) {
-        super("update id {element}", "update the value of a collection " +
-                "element whose id is equal to the specified one");
+        super(CommandType.update);
         this.dataSource = dataSource;
         workerScanner = new SpecialWorkerScanner(dataSource);
     }

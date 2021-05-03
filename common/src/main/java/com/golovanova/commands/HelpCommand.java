@@ -6,10 +6,10 @@ public class HelpCommand extends AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
 
     public HelpCommand() {
-        super("help", "display help for available golovanova.golovanova.commands");
+        super(CommandType.help);
     }
 
-    public void execute() {
+    public String execute() {
         System.out.println("help - " + "display help for available golovanova.golovanova.commands");
         System.out.println("add {element} - " + "add a new item to the collection");
         System.out.println("average_of_salary - " + "output the average value of the salary" +
@@ -33,5 +33,6 @@ public class HelpCommand extends AbstractCommand implements Serializable {
                 "in a string representation to the standard output stream");
         System.out.println("update id {element} - " + "update the value of a collection " +
                 "element whose id is equal to the specified one");
+        return "help!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     }
 }

@@ -9,18 +9,19 @@ import com.golovanova.utility.CommandDecoder;
 import com.golovanova.utility.FileManager;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ExecuteScriptCommand extends AbstractCommand {
+public class ExecuteScriptCommand extends AbstractCommand implements Serializable {
     private Stack<String> fileNames = new Stack<>();
+    static final long SerialVersionUID = -4862926644813433707L;
 
     public ExecuteScriptCommand() {
-        super("execute_script file_name", "read and execute the script from the specified " +
-                "file. The script contains golovanova.golovanova.commands in the same form as the user enters them interactively.");
+        super(CommandType.execute_script);
     }
 
     public void execute(String filename, ArrayDeque<Worker> workers, CollectionInfo collectionInfo,
@@ -69,46 +70,46 @@ public class ExecuteScriptCommand extends AbstractCommand {
                 new RemoveByIdCommand().execute(workers, Integer.parseInt(line.split(" ")[1]));
                 break;
             case add:
-                new AddCommand(dataSource).execute(workers);
+                new AddCommand(dataSource,commandType).execute(workers);
                 break;
             case average_of_salary:
-                new AverageOfSalaryCommand().execute(workers);
+                new AverageOfSalaryCommand(commandType).execute(workers);
                 break;
             case clear:
-                new ClearCommand().execute(workers);
+                new ClearCommand(commandType).execute(workers);
                 break;
             case execute_script:
                 //System.out.println("Recursion is prohibited.");
-                new ExecuteScriptCommand().execute(line.split(" ")[1], workers, collectionInfo, fileManager);
+                new ExecuteScriptCommand(commandType).execute(line.split(" ")[1], workers, collectionInfo, fileManager);
                 break;
             case exit:
-                new ExitCommand().execute();
+                new ExitCommand(commandType).execute();
                 break;
             case remove_any_by_organization:
-                new RemoveAnyByOrganizationCommand().execute(workers, line.split(" ")[1]);
+                new RemoveAnyByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
                 break;
             case remove_head:
-                new RemoveHeadCommand().execute(workers);
+                new RemoveHeadCommand(commandType).execute(workers);
                 break;
             case remove_lower:
                 try {
-                    new RemoveLowerCommand().execute(line.split(" ")[1], workers);
+                    new RemoveLowerCommand(commandType).execute(line.split(" ")[1], workers);
                 } catch (WorkerNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
             case filter_by_organization:
-                new FilterByOrganizationCommand().execute(workers, line.split(" ")[1]);
+                new FilterByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
                 break;
             case save:
-                new SaveCommand().execute(workers, fileManager, collectionInfo);
+                new SaveCommand(commandType).execute(workers, fileManager, collectionInfo);
                 break;
             case show:
-                new ShowCommand().execute(workers);
+                new ShowCommand(commandType).execute(workers);
                 break;
             case update:
                 try {
-                    new UpdateCommand(dataSource).execute(workers);
+                    new UpdateCommand(dataSource,commandType).execute(workers);
                 } catch (WorkerNotFoundException e) {
                     System.err.println("This worker does not exists!");
                 }
