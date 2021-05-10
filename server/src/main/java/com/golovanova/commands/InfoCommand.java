@@ -1,5 +1,6 @@
 package com.golovanova.commands;
 
+import com.golovanova.CommandType;
 import com.golovanova.utility.CollectionInfo;
 
 import java.io.Serializable;

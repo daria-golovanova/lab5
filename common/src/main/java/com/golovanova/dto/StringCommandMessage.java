@@ -1,6 +1,6 @@
 package com.golovanova.dto;
 
-import com.golovanova.commands.CommandType;
+import com.golovanova.CommandType;
 
 public class StringCommandMessage implements CommandMessage {
     private CommandType commandType;

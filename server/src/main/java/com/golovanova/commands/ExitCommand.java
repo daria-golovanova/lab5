@@ -1,5 +1,7 @@
 package com.golovanova.commands;
 
+import com.golovanova.CommandType;
+
 import java.io.Serializable;
 //TODO ??
 

@@ -1,10 +1,10 @@
 package com.golovanova.commands;
 
 import com.golovanova.exceptions.WorkerNotFoundException;
+import com.golovanova.CommandType;
 import com.golovanova.model.Worker;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.List;
 

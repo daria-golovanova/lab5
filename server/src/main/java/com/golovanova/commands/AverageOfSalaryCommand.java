@@ -1,5 +1,6 @@
 package com.golovanova.commands;
 
+import com.golovanova.CommandType;
 import com.golovanova.model.Worker;
 
 import java.io.Serializable;

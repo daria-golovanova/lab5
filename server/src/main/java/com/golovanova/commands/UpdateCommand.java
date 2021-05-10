@@ -3,11 +3,11 @@ package com.golovanova.commands;
 import com.golovanova.exceptions.WorkerNotFoundException;
 import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.data.DataSource;
+import com.golovanova.CommandType;
 import com.golovanova.model.Worker;
 import com.golovanova.scanner.SpecialWorkerScanner;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Scanner;
 

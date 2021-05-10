@@ -1,9 +1,9 @@
 package com.golovanova.commands;
 
+import com.golovanova.CommandType;
 import com.golovanova.model.Worker;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.List;
 
 public class RemoveAnyByOrganizationCommand extends AbstractCommand implements Serializable {

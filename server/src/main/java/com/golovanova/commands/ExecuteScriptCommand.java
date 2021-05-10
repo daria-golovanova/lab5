@@ -2,7 +2,7 @@ package com.golovanova.commands;
 
 import com.golovanova.data.DataSource;
 import com.golovanova.data.LinesDataSource;
-import com.golovanova.exceptions.WorkerNotFoundException;
+import com.golovanova.CommandType;
 import com.golovanova.utility.CollectionInfo;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
@@ -11,7 +11,6 @@ import com.golovanova.utility.FileManager;
 import java.io.File;
 import java.io.Serializable;
 import java.nio.file.Files;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;

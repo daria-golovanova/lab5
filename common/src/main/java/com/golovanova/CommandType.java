@@ -1,4 +1,4 @@
-package com.golovanova.commands;
+package com.golovanova;
 
 public enum CommandType {
     help("help", "display help for available golovanova.golovanova.commands"),
