@@ -11,9 +11,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class FileManager {
 
@@ -42,20 +40,20 @@ public class FileManager {
         }
     }
 
-    public ArrayDeque<Worker> readCollection() {
+    public List<Worker> readCollection() {
         if (file == null) {
             System.err.println("File is null!");
-            return new ArrayDeque<>();
+            return new ArrayList<>();
         }
 
         if (!file.isFile() || !file.exists() || !file.canRead()) {
             System.err.println("File is corrupted!");
-            return new ArrayDeque<>();
+            return new ArrayList<>();
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            ArrayDeque<Worker> collection = new ArrayDeque<>();
-            Type collectionType = new TypeToken<ArrayDeque<Worker>>() {
+            ArrayList<Worker> collection = new ArrayList<>();
+            Type collectionType = new TypeToken<List<Worker>>() {
             }.getType();
             collection = g.fromJson(reader.readLine().trim(), collectionType);
             System.out.println("Collection is downloaded!");
@@ -79,7 +77,7 @@ public class FileManager {
         }
 
 
-        return new ArrayDeque<>();
+        return new ArrayList<>();
     }
 
     public ArrayDeque<Worker> readObject() {

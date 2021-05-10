@@ -23,8 +23,9 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
     public ExecuteScriptCommand() {
         super(CommandType.execute_script);
     }
+    //TODO
 
-    public void execute(String filename, ArrayDeque<Worker> workers, CollectionInfo collectionInfo,
+    public void execute(String filename, List<Worker> workers, CollectionInfo collectionInfo,
                         FileManager fileManager) {
         try {
             File file = new File(filename);
@@ -47,7 +48,7 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
 
     public void choseCommand(String line,
                              DataSource dataSource,
-                             ArrayDeque<Worker> workers,
+                             List<Worker> workers,
                              CollectionInfo collectionInfo,
                              FileManager fileManager) {
 
@@ -57,66 +58,63 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
         history.add(commandType);
 
         switch (commandType) {
-            case help:
-                new HelpCommand().execute();
-                break;
-            case info:
-                new InfoCommand().execute(workers, collectionInfo);
-                break;
-            case history:
-                new HistoryCommand().execute(history, commandType);
-                break;
-            case remove_by_id:
-                new RemoveByIdCommand().execute(workers, Integer.parseInt(line.split(" ")[1]));
-                break;
-            case add:
-                new AddCommand(dataSource,commandType).execute(workers);
-                break;
-            case average_of_salary:
-                new AverageOfSalaryCommand(commandType).execute(workers);
-                break;
-            case clear:
-                new ClearCommand(commandType).execute(workers);
-                break;
-            case execute_script:
-                //System.out.println("Recursion is prohibited.");
-                new ExecuteScriptCommand(commandType).execute(line.split(" ")[1], workers, collectionInfo, fileManager);
-                break;
-            case exit:
-                new ExitCommand(commandType).execute();
-                break;
-            case remove_any_by_organization:
-                new RemoveAnyByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
-                break;
-            case remove_head:
-                new RemoveHeadCommand(commandType).execute(workers);
-                break;
-            case remove_lower:
-                try {
-                    new RemoveLowerCommand(commandType).execute(line.split(" ")[1], workers);
-                } catch (WorkerNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case filter_by_organization:
-                new FilterByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
-                break;
-            case save:
-                new SaveCommand(commandType).execute(workers, fileManager, collectionInfo);
-                break;
-            case show:
-                new ShowCommand(commandType).execute(workers);
-                break;
-            case update:
-                try {
-                    new UpdateCommand(dataSource,commandType).execute(workers);
-                } catch (WorkerNotFoundException e) {
-                    System.err.println("This worker does not exists!");
-                }
-                break;
-            case no_command:
-                System.out.println("No such command. Try again!");
-                break;
+//            case help:
+//                new HelpCommand().execute();
+//                break;
+//            case info:
+//                new InfoCommand().execute(workers, collectionInfo);
+//                break;
+//            case history:
+//                new HistoryCommand().execute(history, commandType);
+//                break;
+//            case remove_by_id:
+//                new RemoveByIdCommand().execute(workers, Integer.parseInt(line.split(" ")[1]));
+//                break;
+//            case add:
+//                new AddCommand(dataSource,commandType).execute(workers);
+//                break;
+//            case average_of_salary:
+//                new AverageOfSalaryCommand(commandType).execute(workers);
+//                break;
+//            case clear:
+//                new ClearCommand(commandType).execute(workers);
+//                break;
+//            case execute_script:
+//                //System.out.println("Recursion is prohibited.");
+//                new ExecuteScriptCommand(commandType).execute(line.split(" ")[1], workers, collectionInfo, fileManager);
+//                break;
+//            case exit:
+//                new ExitCommand(commandType).execute();
+//                break;
+//            case remove_any_by_organization:
+//                new RemoveAnyByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
+//                break;
+//            case remove_head:
+//                new RemoveHeadCommand(commandType).execute(workers);
+//                break;
+//            case remove_lower:
+//                try {
+//                    new RemoveLowerCommand(commandType).execute(line.split(" ")[1], workers);
+//                } catch (WorkerNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
+//            case filter_by_organization:
+//                new FilterByOrganizationCommand(commandType).execute(workers, line.split(" ")[1]);
+//                break;
+//            case save:
+//                new SaveCommand(commandType).execute(workers, fileManager, collectionInfo);
+//                break;
+//            case show:
+//                new ShowCommand(commandType).execute(workers);
+//                break;
+//            case update:
+//                try {
+//                    new UpdateCommand(dataSource,commandType).execute(workers);
+//                } catch (WorkerNotFoundException e) {
+//                    System.err.println("This worker does not exists!");
+//                }
+//                break;
             default:
                 System.err.println("No such command. Try again!");
         }

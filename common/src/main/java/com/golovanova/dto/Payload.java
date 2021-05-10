@@ -5,13 +5,13 @@ import com.golovanova.model.Worker;
 import java.util.List;
 
 public class Payload {
-    private List<Worker> workers;
+    private Worker worker;
 
-    public Payload(List<Worker> workers) {
-        this.workers = workers;
+    public Payload(Worker worker) {
+        this.worker = worker;
     }
 
-    public List<Worker> getWorkers() {
-        return workers;
+    public Worker getWorker() {
+        return worker;
     }
 }

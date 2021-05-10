@@ -13,7 +13,6 @@ public class CommandDecoder {
             case "update": return CommandType.update;
             case "remove_by_id": return CommandType.remove_by_id;
             case "clear": return CommandType.clear;
-            case "save": return CommandType.save;
             case "execute_script": return CommandType.execute_script;
             case "exit": return CommandType.exit;
             case "remove_head": return CommandType.remove_head;
@@ -22,7 +21,7 @@ public class CommandDecoder {
             case "remove_any_by_organization": return CommandType.remove_any_by_organization;
             case "average_of_salary": return CommandType.average_of_salary;
             case "filter_by_organization": return CommandType.filter_by_organization;
-            default: return CommandType.no_command;
+            default: throw new IllegalArgumentException("Wrong command: " + split[0]);
         }
     }
 }

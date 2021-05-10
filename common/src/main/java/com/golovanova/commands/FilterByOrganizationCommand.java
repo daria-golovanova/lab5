@@ -4,6 +4,7 @@ import com.golovanova.model.Worker;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class FilterByOrganizationCommand extends AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
@@ -12,11 +13,13 @@ public class FilterByOrganizationCommand extends AbstractCommand implements Seri
         super(CommandType.filter_by_organization);
     }
 
-    public void execute (ArrayDeque<Worker> workers, String organisationName) {
+    public String execute (List<Worker> workers, String organisationName) {
+        String result = "";
         for (Worker w : workers) {
             if (w.getOrganization().getName().equals(organisationName)) {
-                System.out.println(w);
+                result += w.toString() + "\n";
             }
         }
+        return result;
     }
 }

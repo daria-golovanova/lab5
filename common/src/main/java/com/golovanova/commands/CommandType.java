@@ -11,7 +11,6 @@ public enum CommandType {
     remove_by_id("remove_by_id id",
             "delete an item from the collection by its id"),
     clear("clear", "clear the collection"),
-    save("save", "to save the collection to a file"),
     execute_script("execute_script file_name", "read and execute the script from the specified " +
             "file. The script contains golovanova.golovanova.commands in the same form as the user enters them interactively."),
     exit("exit", "end the program (without saving it to a file)"),

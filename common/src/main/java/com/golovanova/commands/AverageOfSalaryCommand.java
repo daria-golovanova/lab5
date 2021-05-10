@@ -2,9 +2,9 @@ package com.golovanova.commands;
 
 import com.golovanova.model.Worker;
 
-import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayDeque;
+import java.util.List;
+
 
 public class AverageOfSalaryCommand extends AbstractCommand implements Serializable {
     private double averageSalary;
@@ -15,13 +15,11 @@ public class AverageOfSalaryCommand extends AbstractCommand implements Serializa
     }
 
 
-    public void execute(ArrayDeque<Worker> workers) {
+    public double execute(List<Worker> workers) {
 
         for (Worker w: workers) {
             averageSalary+= w.getSalary();
         }
-        averageSalary = averageSalary/workers.size();
-
-        System.out.println(averageSalary);
+        return averageSalary = averageSalary/workers.size();
     }
 }

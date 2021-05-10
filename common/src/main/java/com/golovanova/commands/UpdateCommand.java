@@ -8,6 +8,7 @@ import com.golovanova.scanner.SpecialWorkerScanner;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Scanner;
 
 public class UpdateCommand extends AbstractCommand implements Serializable {
@@ -27,8 +28,7 @@ public class UpdateCommand extends AbstractCommand implements Serializable {
         workerScanner = new SpecialWorkerScanner(dataSource);
     }
 
-    public void execute(ArrayDeque<Worker> workers) throws WorkerNotFoundException {
-        Worker worker = workerScanner.scan();
+    public void execute(List<Worker> workers, Worker worker) throws WorkerNotFoundException {
         try {
             for (Worker w : workers) {
                 if (w.getId().equals(worker.getId())) {

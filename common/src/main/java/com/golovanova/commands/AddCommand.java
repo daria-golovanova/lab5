@@ -4,9 +4,11 @@ import com.golovanova.data.DataSource;
 import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.model.Worker;
 import com.golovanova.scanner.WorkerScanner;
+import com.golovanova.utility.FileManager;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddCommand extends AbstractCommand implements Serializable {
@@ -26,8 +28,10 @@ public class AddCommand extends AbstractCommand implements Serializable {
         workerScanner = new WorkerScanner(dataSource);
     }
 
-    public void execute(ArrayDeque<Worker> workers) {
-        Worker worker = workerScanner.scan();
+    public List<Worker> execute(List<Worker> workers, Worker worker) {
+//        SaveCommand saveCommand = new SaveCommand();
+//        saveCommand.execute(workers);
         workers.add(worker);
+        return workers;
     }
 }

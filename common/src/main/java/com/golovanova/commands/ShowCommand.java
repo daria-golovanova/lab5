@@ -4,6 +4,7 @@ import com.golovanova.model.Worker;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class ShowCommand extends AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
@@ -12,9 +13,11 @@ public class ShowCommand extends AbstractCommand implements Serializable {
         super(CommandType.show);
     }
 
-    public void execute(ArrayDeque<Worker> workers) {
+    public String execute(List<Worker> workers) {
+        String result = "";
         for (Worker w : workers) {
-            System.out.println(w.toString());
+            result += w.toString() + "\n";
         }
+        return result;
     }
 }

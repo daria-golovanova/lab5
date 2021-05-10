@@ -4,6 +4,7 @@ import com.golovanova.model.Worker;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class ClearCommand extends AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
@@ -11,7 +12,8 @@ public class ClearCommand extends AbstractCommand implements Serializable {
         super(CommandType.clear);
     }
 
-    public void execute(ArrayDeque<Worker> workers) {
+    public List<Worker> execute(List<Worker> workers) {
         workers.clear();
+        return workers;
     }
 }

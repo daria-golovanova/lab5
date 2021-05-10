@@ -4,6 +4,7 @@ import com.golovanova.model.Worker;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
+import java.util.List;
 
 public class RemoveHeadCommand extends AbstractCommand implements Serializable {
     static final long SerialVersionUID = -4862926644813433707L;
@@ -12,7 +13,9 @@ public class RemoveHeadCommand extends AbstractCommand implements Serializable {
         super(CommandType.remove_head);
     }
 
-    public void execute(ArrayDeque<Worker> workers) {
-        System.out.println(workers.pollFirst());
+    public Worker execute(List<Worker> workers) {
+       Worker w = workers.get(0);
+       workers.remove(0);
+       return w;
     }
 }

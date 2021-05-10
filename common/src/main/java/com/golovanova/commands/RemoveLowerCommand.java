@@ -6,6 +6,7 @@ import com.golovanova.model.Worker;
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Iterator;
+import java.util.List;
 
 //@Slf4j //Slf4j, logback.xml - читать
 public class RemoveLowerCommand extends AbstractCommand implements Serializable {
@@ -15,7 +16,7 @@ public class RemoveLowerCommand extends AbstractCommand implements Serializable 
         super(CommandType.remove_lower);
     }
 
-    public void execute(String elementIdStr, ArrayDeque<Worker> workers) throws WorkerNotFoundException {
+    public List<Worker> execute(List<Worker> workers, String elementIdStr) throws WorkerNotFoundException {
         Integer elementIdInt = Integer.parseInt(elementIdStr);
         Worker worker = null;
         for (Worker w: workers) {
@@ -35,11 +36,7 @@ public class RemoveLowerCommand extends AbstractCommand implements Serializable 
             if (w.compareTo(worker) == -1) {
             iterator.remove(); }
         }
+        return workers;
 
-        //        for (Worker w : workers) {
-//            if (w.compareTo(worker) == -1) {
-//                workers.remove(w);
-//            }
-//        }
     }
 }
