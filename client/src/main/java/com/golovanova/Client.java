@@ -1,7 +1,6 @@
 package com.golovanova;
 
 
-import com.golovanova.commands.CommandType;
 import com.golovanova.data.ConsoleDataSource;
 import com.golovanova.data.DataSource;
 import com.golovanova.dto.*;
@@ -9,17 +8,12 @@ import com.golovanova.model.Worker;
 import com.golovanova.net.ClientRequest;
 import com.golovanova.net.Sender;
 import com.golovanova.scanner.WorkerScanner;
-import com.golovanova.utility.CollectionInfo;
 import com.golovanova.utility.CommandDecoder;
-import com.golovanova.utility.FileManager;
 import com.golovanova.utility.RecursionChecker;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -45,8 +39,6 @@ public class Client {
     }
 
     private void start(String[] args) {
-        DatagramClient client = new DatagramClient();
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 try {
@@ -62,50 +54,6 @@ public class Client {
         });
 
         Scanner scanner = new Scanner(System.in);
-        List<Worker> workers = new ArrayList<>();
-        CollectionInfo collectionInfo = new CollectionInfo(workers);
-
-        String filePath = "data.json";
-
-        if (args.length > 0)
-            filePath = args[0];
-
-        File file = new File(filePath);
-        if (file.isFile() && !file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.err.println("New file was created!");
-            }
-        }
-
-
-        FileManager fileManager = new FileManager(file);
-        workers = fileManager.readCollection();
-//
-//        System.out.print("Введите порт: ");
-//        try {
-//            port = Integer.parseInt(scanner.nextLine());
-//        } catch (NumberFormatException e) {
-//            System.err.println("Порт должен быть целым числом от 0 до 65535, клиент будет отключен.");
-//            System.exit(-1);
-//        }
-//        try {
-//            receiver = new Receiver(port, true);
-//            receiver.startListening();
-//        } catch (IOException e) {
-//            System.out.println("Не получилось запустить клиент: " + e.toString());
-//        }
-//
-//        System.out.println("Добро пожаловать!\n"  +
-//                "Чтобы получить справку по командам, введите команду help.\n");
-
-        //System.out.println(workers.stream().map(Worker::toString).collect(Collectors.joining("\n\n")));
-        //System.out.println("Use 'help' command for browsing the list of golovanova.golovanova.commands.");
-        ArrayList<CommandType> history = new ArrayList<>();
-        if (!file.canWrite()) {
-            System.out.println("This file cannot be overwritten!");
-        }
         while (true) {
             System.out.println("Enter command: ");
             String input = scanner.nextLine();
@@ -124,8 +72,6 @@ public class Client {
                     System.exit(-1);
                 }
             }
-
-            history.add(commandType);
 
             switch (commandType) {
                 case help:
