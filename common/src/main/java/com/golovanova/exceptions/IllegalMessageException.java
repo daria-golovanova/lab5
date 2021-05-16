@@ -1,4 +1,4 @@
-package com.golovanova.exception;
+package com.golovanova.exceptions;
 
 public class IllegalMessageException extends Exception {
     public IllegalMessageException(String message) {
