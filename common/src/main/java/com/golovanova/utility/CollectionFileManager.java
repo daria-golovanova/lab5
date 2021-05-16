@@ -13,17 +13,19 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
 
-public class FileManager {
+public class CollectionFileManager {
+    private final File file;
+    private final Gson gson;
+    private final CollectionInfo collectionInfo;
 
-    private final Gson g = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
-            .enableComplexMapKeySerialization()
-            .create();
-
-    private File file;
-
-    public FileManager(File file) {
+    public CollectionFileManager(File file, CollectionInfo collectionInfo) {
         this.file = file;
+        this.collectionInfo = collectionInfo;
+
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
+                .enableComplexMapKeySerialization()
+                .create();
     }
 
     public void writeCollection(Collection<?> collection) {
@@ -33,7 +35,8 @@ public class FileManager {
         }
 
         try (PrintWriter collectionFileWriter = new PrintWriter(file)) {
-            collectionFileWriter.write(g.toJson(collection));
+            collectionFileWriter.write(gson.toJson(collection));
+            collectionInfo.updateSaveTime(LocalDateTime.now());
             System.out.println("Collection successfully saved to file!");
         } catch (IOException exception) {
             System.err.println("The boot file is a directory/cannot be opened!");
@@ -52,15 +55,14 @@ public class FileManager {
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            ArrayList<Worker> collection = new ArrayList<>();
             Type collectionType = new TypeToken<List<Worker>>() {
             }.getType();
-            collection = g.fromJson(reader.readLine().trim(), collectionType);
+
+            ArrayList<Worker> collection = gson.fromJson(reader.readLine().trim(), collectionType);
             System.out.println("Collection is downloaded!");
 
-            CollectionInfo collectionInfo = new CollectionInfo(collection);
-            collectionInfo.setSaveTime(LocalDateTime.now());
-            collectionInfo.setInitTime(LocalDateTime.now());
+            CollectionInfo collectionInfo = new CollectionInfo(LocalDateTime.now());
+            collectionInfo.updateSaveTime(LocalDateTime.now());
 
             Worker.updateIdSequence(collection);
 
@@ -79,34 +81,4 @@ public class FileManager {
 
         return new ArrayList<>();
     }
-
-    public ArrayDeque<Worker> readObject() {
-        if (file == null || !file.isFile() || !file.exists()) {
-            return new ArrayDeque<>();
-        }
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            ArrayDeque<Worker> collection = new ArrayDeque<>();
-            Type type = new TypeToken<Worker>() {
-            }.getType();
-            Worker w = g.fromJson(reader.readLine().trim(), type);
-            collection.add(w);
-
-            System.out.println("Object is downloaded!");
-            return collection;
-
-
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        }
-
-        return new ArrayDeque<>();
-    }
-
-
-    @Override
-    public String toString() {
-        String string = "FileManager (класс для работы с загрузочным файлом)";
-        return string;
-    }
-
 }

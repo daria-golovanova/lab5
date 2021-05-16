@@ -1,6 +1,6 @@
 package com.golovanova.utility;
 
-import com.golovanova.commands.CommandType;
+import com.golovanova.CommandType;
 
 public class CommandDecoder {
     public static CommandType decode(String input) {
