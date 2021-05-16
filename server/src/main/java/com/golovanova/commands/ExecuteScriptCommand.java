@@ -6,7 +6,6 @@ import com.golovanova.CommandType;
 import com.golovanova.utility.CollectionInfo;
 import com.golovanova.model.Worker;
 import com.golovanova.utility.CommandDecoder;
-import com.golovanova.utility.FileManager;
 
 import java.io.File;
 import java.io.Serializable;
@@ -22,10 +21,8 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
     public ExecuteScriptCommand() {
         super(CommandType.execute_script);
     }
-    //TODO
 
-    public void execute(String filename, List<Worker> workers, CollectionInfo collectionInfo,
-                        FileManager fileManager) {
+    public void execute(String filename, List<Worker> workers, CollectionInfo collectionInfo) {
         try {
             File file = new File(filename);
             if (!file.canRead())
@@ -37,7 +34,7 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
 
             while (!dataSource.endOfData()) {
                 String line = dataSource.nextLine();
-                choseCommand(line, dataSource, workers, collectionInfo, fileManager);
+                choseCommand(line, dataSource, workers, collectionInfo);
             }
         } catch (Exception e) {
             System.err.println("File cannot be read!");
@@ -48,8 +45,7 @@ public class ExecuteScriptCommand extends AbstractCommand implements Serializabl
     public void choseCommand(String line,
                              DataSource dataSource,
                              List<Worker> workers,
-                             CollectionInfo collectionInfo,
-                             FileManager fileManager) {
+                             CollectionInfo collectionInfo) {
 
 
         ArrayList<CommandType> history = new ArrayList<>();
